@@ -73,6 +73,13 @@ document.addEventListener('DOMContentLoaded', () => {
         currentPosition += width
         draw()
     }
+
+    //freeze function
+    if (current.some(index => squares[currentPosition + index + width].classList.forEach.contains('taken'))){
+        current.forEach(index => squares[currentPosition+index].classList.add('taken')
+        
+        )
+    }
     
 
     
