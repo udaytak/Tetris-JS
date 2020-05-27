@@ -57,14 +57,22 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     }
 
+    //undraw tetromino
     function undraw(){
         current.forEach(index => {
             squares[currentPosition + index].classList.remove('tetromino')
         })
     }
 
-    //
-    draw()
+    //move tetromino move down every Second
+    timerId = setInterval(moveDown,500)
+
+    //make tetromino move down every second
+    function moveDown(){
+        undraw()
+        currentPosition += width
+        draw()
+    }
     
 
     
