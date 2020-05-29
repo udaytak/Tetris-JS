@@ -1,10 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
     const grid = document.querySelector('.grid')
     let squares = Array.from(document.querySelectorAll('.grid div'))
-    const ScoreDisplay = document.querySelector('#score')
-    const StartBtn = document.querySelector('#start-button')
+    const scoreDisplay = document.querySelector('#score')
+    const startBtn = document.querySelector('#start-button')
     const width = 10
     let nextRandom = 0
+    let timerId
 
     //Tetrominos - l z t o i
     const lTetromino = [
@@ -175,5 +176,16 @@ document.addEventListener('DOMContentLoaded', () => {
             displaySquares[displayIndex + index].classList.add('tetromino')
         })
     }
+
+    //add button functionality
+    startBtn.addEventListener('click',()=>{
+        if(timerId) {
+            clearInterval(timerId)
+            timerId = null
+        }
+        else{
+            timerId = setInterval(moveDown,500)
+        }
+    })
 
 })
