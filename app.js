@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const width = 10
     let nextRandom = 0
     let timerId
+    let score = 0
 
     //Tetrominos - l z t o i
     const lTetromino = [
@@ -67,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     //move tetromino move down every Second
-    timerId = setInterval(moveDown,500)
+    //timerId = setInterval(moveDown,500)
 
     //assign function to keycodes
     function control(e){
@@ -108,6 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
             currentPosition = 4
             draw()
             displayShape()
+            addScore()
         }
     }
 
@@ -184,8 +186,30 @@ document.addEventListener('DOMContentLoaded', () => {
             timerId = null
         }
         else{
+            draw()
             timerId = setInterval(moveDown,500)
+            nextRandom = Math.floor(Math.random() * theTetrominoes.length)
+            displayShape()
         }
     })
+
+    //add score
+    function addScore(){
+        for(let i = 0; i<199 ; i += width) {
+            const row = [i, i+1, i+2, i+3, i+4, i+5, i+6, i+7, i+8, i+9]
+
+            if(row.every(index => squares[index].classList.contains('taken'))){
+                score += 10
+                scoreDisplay.innerHTML = score
+                row.forEach(index => {
+                    squares[index].classList.remove('taken')
+                    squares[index].classList.remove('tetromino')
+                })
+                const squaresRemoved = squares.splice(i,width)
+                squares = squaresRemoved.concat(squares)
+                squares.forEach(cell => grid.appendChild(cell))
+            }
+        }
+    }
 
 })
